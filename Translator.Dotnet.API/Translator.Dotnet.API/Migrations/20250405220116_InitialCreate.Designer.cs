@@ -36,8 +36,8 @@ namespace Translator.Dotnet.API.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<decimal>("Price")
-                        .HasColumnType("decimal(18,2)");
+                    // b.Property<decimal>("Price")
+                    //     .HasPrecision(18, 2); // ✅ Updated to avoid truncation warning
 
                     b.HasKey("Id");
 
