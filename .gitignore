@@ -1,2 +1,6 @@
-/Translator.Dotnet.API/Translator.Dotnet.API/obj
-/Translator.Dotnet.API/Translator.Dotnet.API/bin
+# Ignore build output directories
+**/bin/
+**/obj/
+
+# Ignore all of the cached files
+*.cache

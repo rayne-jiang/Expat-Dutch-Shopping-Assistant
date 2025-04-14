@@ -4,6 +4,10 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;  // For logging
 using Translator.Dotnet.API.Data;
+using DotNetEnv;
+
+// Load environment variables from .env file
+Env.Load();
 
 var builder = WebApplication.CreateBuilder(args);
 

@@ -12,6 +12,8 @@
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="9.0.3" />
+    <PackageReference Include="RestSharp" Version="112.1.0" />
+    <PackageReference Include="DotNetEnv" Version="2.5.0" />
   </ItemGroup>
 
 </Project>
