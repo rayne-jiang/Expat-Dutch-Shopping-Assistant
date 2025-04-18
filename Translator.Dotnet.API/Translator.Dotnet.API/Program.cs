@@ -12,6 +12,18 @@ Env.Load();
 
 var builder = WebApplication.CreateBuilder(args);
 
+// Add CORS services
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowFrontend",
+        builder =>
+        {
+            builder.WithOrigins("http://localhost:5174")
+                   .AllowAnyMethod()
+                   .AllowAnyHeader();
+        });
+});
+
 // Access the connection string
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 
@@ -29,6 +41,9 @@ builder.Services.AddScoped<TranslatorService>();
 builder.Services.AddControllers();
 
 var app = builder.Build();
+
+// Use CORS policy
+app.UseCors("AllowFrontend");
 
 app.UseRouting();
 
