@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;  // For logging
 using Translator.Dotnet.API.Data;
 using DotNetEnv;
+using Translator.Dotnet.API.Services;
 
 // Load environment variables from .env file
 Env.Load();
@@ -21,6 +22,8 @@ logger.LogInformation($"Connection String: {connectionString}");
 // Add services to the container.
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(connectionString));
+
+builder.Services.AddScoped<IJumboProductService, JumboProductService>();
 
 builder.Services.AddControllers();
 
