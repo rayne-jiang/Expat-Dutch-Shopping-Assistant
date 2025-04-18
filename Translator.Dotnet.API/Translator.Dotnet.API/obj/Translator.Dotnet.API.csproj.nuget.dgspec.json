@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "/Users/rayne/dotnet project/Dutch-To-Mandarin-Translator/Translator.Dotnet.API/Translator.Dotnet.API/Translator.Dotnet.API.csproj": {}
+    "/Users/rayne/dotnet/Dutch-To-Mandarin-Translator/Translator.Dotnet.API/Translator.Dotnet.API/Translator.Dotnet.API.csproj": {}
   },
   "projects": {
-    "/Users/rayne/dotnet project/Dutch-To-Mandarin-Translator/Translator.Dotnet.API/Translator.Dotnet.API/Translator.Dotnet.API.csproj": {
+    "/Users/rayne/dotnet/Dutch-To-Mandarin-Translator/Translator.Dotnet.API/Translator.Dotnet.API/Translator.Dotnet.API.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/rayne/dotnet project/Dutch-To-Mandarin-Translator/Translator.Dotnet.API/Translator.Dotnet.API/Translator.Dotnet.API.csproj",
+        "projectUniqueName": "/Users/rayne/dotnet/Dutch-To-Mandarin-Translator/Translator.Dotnet.API/Translator.Dotnet.API/Translator.Dotnet.API.csproj",
         "projectName": "Translator.Dotnet.API",
-        "projectPath": "/Users/rayne/dotnet project/Dutch-To-Mandarin-Translator/Translator.Dotnet.API/Translator.Dotnet.API/Translator.Dotnet.API.csproj",
+        "projectPath": "/Users/rayne/dotnet/Dutch-To-Mandarin-Translator/Translator.Dotnet.API/Translator.Dotnet.API/Translator.Dotnet.API.csproj",
         "packagesPath": "/Users/rayne/.nuget/packages/",
-        "outputPath": "/Users/rayne/dotnet project/Dutch-To-Mandarin-Translator/Translator.Dotnet.API/Translator.Dotnet.API/obj/",
+        "outputPath": "/Users/rayne/dotnet/Dutch-To-Mandarin-Translator/Translator.Dotnet.API/Translator.Dotnet.API/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/Users/rayne/.nuget/NuGet/NuGet.Config"
@@ -41,6 +41,10 @@
             "DotNetEnv": {
               "target": "Package",
               "version": "[2.5.0, )"
+            },
+            "HtmlAgilityPack": {
+              "target": "Package",
+              "version": "[1.12.1, )"
             },
             "Microsoft.EntityFrameworkCore.Design": {
               "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",

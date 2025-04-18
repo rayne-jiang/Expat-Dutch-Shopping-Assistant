@@ -22,8 +22,8 @@ namespace Translator.Dotnet.API.Controllers
                 return BadRequest("Search term cannot be empty");
             }
 
-            var result = await _jumboProductService.SearchProductsAsync(searchTerm);
-            return Ok(result);
+            var productImages = await _jumboProductService.SearchProductsAsync(searchTerm);
+            return Ok(new { productImages });
         }
     }
 } 
