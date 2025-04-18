@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using Translator.Dotnet.API.Models;
 using RestSharp;
 
-namespace Translator.Dotnet.API.Service
+namespace Translator.Dotnet.API.Services
 {
     public class TranslatorService
     {

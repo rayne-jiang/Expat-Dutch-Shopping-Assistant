@@ -24,6 +24,7 @@ builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(connectionString));
 
 builder.Services.AddScoped<IJumboProductService, JumboProductService>();
+builder.Services.AddScoped<TranslatorService>();
 
 builder.Services.AddControllers();
 

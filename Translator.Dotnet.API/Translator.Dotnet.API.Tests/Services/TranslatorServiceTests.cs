@@ -1,7 +1,7 @@
 using System.Threading.Tasks;
 using Moq;
 using RestSharp;
-using Translator.Dotnet.API.Service;
+using Translator.Dotnet.API.Services;
 using Xunit;
 using System.Threading;
 using DotNetEnv;

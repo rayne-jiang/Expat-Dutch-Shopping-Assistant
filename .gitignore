@@ -4,3 +4,6 @@
 
 # Ignore all of the cached files
 *.cache
+
+# Ignore all of the .env file
+**/.env

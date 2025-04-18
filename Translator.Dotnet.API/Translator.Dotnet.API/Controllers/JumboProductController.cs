@@ -8,10 +8,12 @@ namespace Translator.Dotnet.API.Controllers
     public class JumboProductController : ControllerBase
     {
         private readonly IJumboProductService _jumboProductService;
+        private readonly TranslatorService _translatorService;
 
-        public JumboProductController(IJumboProductService jumboProductService)
+        public JumboProductController(IJumboProductService jumboProductService, TranslatorService translatorService)
         {
             _jumboProductService = jumboProductService;
+            _translatorService = translatorService;
         }
 
         [HttpGet("search")]
@@ -22,7 +24,10 @@ namespace Translator.Dotnet.API.Controllers
                 return BadRequest("Search term cannot be empty");
             }
 
-            var productImages = await _jumboProductService.SearchProductsAsync(searchTerm);
+            // Translate search term to Dutch
+            var translatedSearchTerm = await _translatorService.TranslateTextAsync(searchTerm, "NL");
+
+            var productImages = await _jumboProductService.SearchProductsAsync(translatedSearchTerm);
             return Ok(new { productImages });
         }
     }
