@@ -1,5 +1,23 @@
 version: '3.8'
+
 services:
+  translator-api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: translator-api
+    ports:
+      - "8080:80"
+    environment:
+      - DEEPL_API_KEY=${DEEPL_API_KEY}
+      - DEEPL_BASE_URL=${DEEPL_BASE_URL:-https://api-free.deepl.com/v2/translate}
+      - ASPNETCORE_ENVIRONMENT=Production
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:80/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
   sqlserver:
     image: mcr.microsoft.com/azure-sql-edge:latest
     container_name: azure_sql_local
