@@ -1,13 +1,13 @@
 namespace Translator.Dotnet.API.Models
 {
-    public record TranslationResponse
+    public class TranslationResponse
     {
-        public required Translation[] translations { get; init; }
+        public List<Translation> translations { get; set; } = new();
     }
 
-    public record Translation
+    public class Translation
     {
-        public required string text { get; init; }
-        public string detected_source_language { get; init;}
+        public string detected_source_language { get; set; } = string.Empty;
+        public string text { get; set; } = string.Empty;
     }
 } 

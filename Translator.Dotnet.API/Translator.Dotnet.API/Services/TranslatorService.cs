@@ -46,6 +46,9 @@ namespace Translator.Dotnet.API.Services
             if (!response.IsSuccessful)
                 throw new Exception($"Translation failed: {response.ErrorMessage}");
 
+            if (string.IsNullOrEmpty(response.Content))
+                throw new Exception("Empty response from translation service");
+
             var translationResponse = JsonSerializer.Deserialize<TranslationResponse>(response.Content);
             return translationResponse?.translations?[0]?.text 
                 ?? throw new Exception("Failed to parse translation response");

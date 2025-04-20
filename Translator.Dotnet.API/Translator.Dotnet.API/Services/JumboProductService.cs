@@ -6,8 +6,14 @@ namespace Translator.Dotnet.API.Services
 {
     public class ProductInfo
     {
-        public string ImageUrl { get; set; }
-        public string ProductName { get; set; }
+        public string ImageUrl { get; set; } = string.Empty;
+        public string ProductName { get; set; } = string.Empty;
+
+        public ProductInfo()
+        {
+            ImageUrl = string.Empty;
+            ProductName = string.Empty;
+        }
     }
 
     public interface IJumboProductService
@@ -24,7 +30,7 @@ namespace Translator.Dotnet.API.Services
         {
             var options = new RestClientOptions("https://www.jumbo.com")
             {
-                MaxTimeout = DEFAULT_TIMEOUT_MS
+                Timeout = TimeSpan.FromMilliseconds(DEFAULT_TIMEOUT_MS)
             };
             _client = new RestClient(options);
         }

@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Logging;  // For logging
+using Microsoft.Extensions.Logging;
 using Translator.Dotnet.API.Data;
 using DotNetEnv;
 using Translator.Dotnet.API.Services;
@@ -24,12 +24,12 @@ builder.Services.AddCors(options =>
         });
 });
 
-// Access the connection string
+// Add services to the container.
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 
-// Log the connection string (for debugging purpose)
-var logger = builder.Services.BuildServiceProvider().GetRequiredService<ILogger<Program>>();
-logger.LogInformation($"Connection String: {connectionString}");
+// Configure logging
+builder.Logging.AddConsole();
+builder.Logging.AddDebug();
 
 // Add services to the container.
 builder.Services.AddDbContext<AppDbContext>(options =>
@@ -41,6 +41,12 @@ builder.Services.AddScoped<TranslatorService>();
 builder.Services.AddControllers();
 
 var app = builder.Build();
+
+// Configure the HTTP request pipeline.
+if (app.Environment.IsDevelopment())
+{
+    app.UseDeveloperExceptionPage();
+}
 
 // Use CORS policy
 app.UseCors("AllowFrontend");
