@@ -1,0 +1,35 @@
+# .NET build output
+bin/
+obj/
+
+# Visual Studio files
+.vs/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Docker files
+Dockerfile*
+docker-compose*
+.docker/
+
+# Git
+.git
+.gitignore
+
+# Environment files
+.env
+.env.*
+
+# IDE files
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Test files
+[Tt]est[Rr]esult*/
+[Bb]uild[Ll]og.*
+*.Tests
+*.Test 
