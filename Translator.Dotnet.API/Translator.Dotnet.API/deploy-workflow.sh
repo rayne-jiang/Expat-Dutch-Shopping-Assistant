@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Configuration
-AWS_REGION="us-east-1"  # Change this to your region
+AWS_REGION="eu-west-2"  # Change this to your region
 REPOSITORY_NAME="translator-api"
 ACCOUNT_ID=$(aws sts get-caller-identity --query Account --output text)
 IMAGE_TAG="latest"
@@ -28,26 +28,36 @@ push_to_ecr() {
     echo -e "${GREEN}Step 1: Building new Docker image...${NC}"
     docker build -t ${REPOSITORY_NAME} .
 
-    echo -e "\n${GREEN}Step 2: Logging in to ECR...${NC}"
+    echo -e "\n${GREEN}Step 2: Verifying ECR repository...${NC}"
+    # Check if repository exists, create if it doesn't
+    if ! aws ecr describe-repositories --repository-names ${REPOSITORY_NAME} --region ${AWS_REGION} &> /dev/null; then
+        echo -e "${YELLOW}Repository does not exist, creating...${NC}"
+        aws ecr create-repository --repository-name ${REPOSITORY_NAME} --region ${AWS_REGION}
+        echo -e "${GREEN}Repository created successfully${NC}"
+    fi
+
+    echo -e "\n${GREEN}Step 3: Logging in to ECR...${NC}"
     aws ecr get-login-password --region ${AWS_REGION} | docker login --username AWS --password-stdin ${ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com
 
-    echo -e "\n${GREEN}Step 3: Tagging image for ECR...${NC}"
+    echo -e "\n${GREEN}Step 4: Tagging image for ECR...${NC}"
     docker tag ${REPOSITORY_NAME}:latest ${ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/${REPOSITORY_NAME}:${IMAGE_TAG}
 
-    echo -e "\n${GREEN}Step 4: Pushing image to ECR...${NC}"
+    echo -e "\n${GREEN}Step 5: Pushing image to ECR...${NC}"
     docker push ${ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/${REPOSITORY_NAME}:${IMAGE_TAG}
+    
+    echo -e "${GREEN}✓ Image pushed successfully to ECR${NC}"
 }
 
 # Function to deploy from ECR
 deploy_from_ecr() {
-    echo -e "\n${GREEN}Step 5: Pulling the latest image from ECR...${NC}"
+    echo -e "\n${GREEN}Step 6: Pulling the latest image from ECR...${NC}"
     docker pull ${ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/${REPOSITORY_NAME}:${IMAGE_TAG}
 
-    echo -e "\n${GREEN}Step 6: Stopping and removing existing container if it exists...${NC}"
+    echo -e "\n${GREEN}Step 7: Stopping and removing existing container if it exists...${NC}"
     docker stop translator-api || true
     docker rm translator-api || true
 
-    echo -e "\n${GREEN}Step 7: Running the container...${NC}"
+    echo -e "\n${GREEN}Step 8: Running the container...${NC}"
     docker run -d \
       --name translator-api \
       -p 8080:80 \
@@ -56,7 +66,7 @@ deploy_from_ecr() {
       -e ASPNETCORE_ENVIRONMENT=Production \
       ${ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/${REPOSITORY_NAME}:${IMAGE_TAG}
 
-    echo -e "\n${GREEN}Step 8: Verifying container status...${NC}"
+    echo -e "\n${GREEN}Step 9: Verifying container status...${NC}"
     docker ps | grep translator-api
 }
 
